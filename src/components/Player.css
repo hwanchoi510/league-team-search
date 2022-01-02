@@ -1,0 +1,67 @@
+.player_red {
+    display: flex;
+    border-radius: 10px;
+    border: 1px solid #000;
+    align-items: center;
+    padding: 10px;
+    margin: 2.5px;
+    background-color: #FFC0CB;
+}
+.player_blue {
+    display: flex;
+    border-radius: 10px;
+    border: 1px solid #000;
+    align-items: center;
+    padding: 10px;
+    margin: 2.5px;
+    background-color: #87ceeb;
+}
+.player_name {
+    font-size: 16px;
+    margin: auto;
+    width: 150px;
+    text-align: center;
+}
+.player_champion_icon {
+    height: 60px;
+    width: 60px;
+}
+.spells {
+    display: flex;
+    flex-direction: column;
+}
+.spell_icon {
+    height: 30px;
+    width: 30px;
+}
+.runes {
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
+    align-items: center;
+}
+.main_runes {
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+}
+.main_rune {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #868686;
+}
+.sub_runes {
+    display: flex;
+    align-items: center;
+}
+.sub_rune {
+    width: 30px;
+    height: 30px;
+}
+.stat_rune {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #868686;
+}

@@ -1,24 +1,39 @@
 import React from 'react'
-import Matches from './Matches';
+import Match from './Match';
+import './SummonerInfo.css'
 
-function SummonerInfo({ summoner, summoner_icon, match }) {
-    
+function SummonerInfo({ summoner, name, summoner_icon, match }) {
+
     var solo_rank = summoner.find(({ queueType }) => queueType === "RANKED_SOLO_5x5");
-    var summoner_name = solo_rank.summonerName;
-    var tier = solo_rank.tier;
-    var rank = solo_rank.rank;
-    var points = solo_rank.leaguePoints;
-    var winrate = solo_rank.wins / (solo_rank.wins + solo_rank.losses);
-    console.log(match)
+    var tier = solo_rank !== undefined ? solo_rank.tier : 'UNRANKED';
+    var rank = solo_rank !== undefined ? solo_rank.rank : '';
+    var points = solo_rank !== undefined ? solo_rank.leaguePoints : '';
+    var winrate = solo_rank !== undefined ? (solo_rank.wins / (solo_rank.wins + solo_rank.losses)).toFixed(2) : '';
 
     return (
-        <div>
-            <img src={`http://ddragon.leagueoflegends.com/cdn/11.24.1/img/profileicon/${summoner_icon}.png`} alt='summoner icon' className="summoner_icon"/>
-            <p>{summoner_name}</p>
-            <p>{tier} {rank}, {points}, {winrate}</p>
-            <Matches matches={match}/>
-            {/* <p>{match.kills}/{match.deaths}/{match.assists}</p> */}
-            
+        <div className='summoner'>
+            <div className='summoner_profile'>
+                <img src={`http://ddragon.leagueoflegends.com/cdn/11.24.1/img/profileicon/${summoner_icon}.png`} alt='summoner icon' className='summoner_icon'/>
+                <div className='summoner_info' >
+                    <h1 className='summoner_name'>{name}</h1>
+                    <div className='ranked_info'>
+                        <img src={`/images/ranked-emblems/Emblem_${tier}.png`} alt='ranked emblem' className='ranked_emblem' />
+                        <div className='ranked_text'>
+                            <p>{tier} {rank}</p>
+                            <p>{points} lp</p>
+                            <p>winrate:{winrate}%</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div className='summoner_matches'>
+                <Match match={match[0]} />
+                <Match match={match[1]} />
+                <Match match={match[2]} />
+                <Match match={match[3]} />
+                <Match match={match[4]} />
+            </div>
         </div>
     )
 }

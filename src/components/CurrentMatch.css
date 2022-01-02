@@ -1,0 +1,6 @@
+.current_match_container {
+    display: flex;
+    justify-content: space-between;
+    width: 1150px;
+    margin: 30px;
+}

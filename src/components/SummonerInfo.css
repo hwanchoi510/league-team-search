@@ -1,0 +1,58 @@
+
+.summoner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 300px;
+    background-color: #ededed;
+    color: #262626;
+    border: 2px solid #000;
+    border-radius: 30px;
+    padding: 10px;
+}
+.summoner_profile {
+    display: flex;
+    width: 300px;
+    height: 110px;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.summoner_icon {
+    border-radius: 50px;
+    width: 80px;
+    height: 80px;
+}
+.summoner_info {
+    margin-left: 10px;
+}
+.summoner_name {
+    font-size: 20px;
+    margin: 0px;
+    text-align: center;
+}
+.ranked_info {
+    display: flex;
+    width: 200px;
+    height: 70px;
+}
+.ranked_info p {
+    font-size: 12;
+    margin: 0;
+}
+.ranked_emblem {
+    width: 60px;
+    height: 70px;
+}
+.ranked_text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10px;
+}
+.summoner_matches {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    align-items: center
+}
