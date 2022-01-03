@@ -1,70 +1,34 @@
-# Getting Started with Create React App
+### League Game Stat Search App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This App uses the Riot API to search the stats of the players in the current game
 
-## Available Scripts
+App written by Hwan Choi (choihwany@naver.com)
 
-In the project directory, you can run:
+# Functions
 
-### `npm start`
+You search by inputting the summoner name (IGN) and select the approporiate server
+Pressing submit will fetch all the data of the summoner's current game
+If they are not in a game or it is a invalid summoner name, it will show an error message
+If it is a valid summoner name and they are in a "Classic" Game Mode game, then it'll show the info of all the players in the game.
+Info Shown:
+&emsp;Current Game Info:
+&emsp;&emsp;For Each Summoner In-Game:
+&emsp;&emsp;&emsp;Summoner Name
+&emsp;&emsp;&emsp;Champion Icon
+&emsp;&emsp;&emsp;Spells
+&emsp;&emsp;&emsp;All the runes (even the ones not shown in game)
+&emsp;Summoner Info:
+&emsp;&emsp;For Each Summoner In-Game:
+&emsp;&emsp;&emsp;Summoner Name
+&emsp;&emsp;&emsp;Summoner Icon
+&emsp;&emsp;&emsp;Tier
+&emsp;&emsp;&emsp;Rank Points
+&emsp;&emsp;&emsp;Stat of the 5 most recent ranked games
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# Restrictions
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Only NA and KR servers are supported so far
 
-### `npm test`
+Player must be in a "Classic" Game Mode (Solo, Flex or Normal in Summoner's Rift)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Due to Request Rate Limit, you cannot search multiple times in short period of time (Roughly once per 2 min)

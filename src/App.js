@@ -4,7 +4,12 @@ import SearchForm from "./components/SearchForm";
 import MatchInfo from "./components/MatchInfo";
 import './App.css'
 
+/**
+ * Main App
+ * Displays the components of the website
+ */
 function App() {
+
   const API_KEY = process.env.REACT_APP_RIOT_API_KEY;
   var regions = {
     na1: "americas",
@@ -22,6 +27,12 @@ function App() {
   const [champions, setChamps] = useState([]);
   const [spells, setSpells] = useState([]);
 
+  /**
+   * Gets the initial data from the riot api
+   * Data fetched:
+   *  champions
+   *  summoner spells
+   */
   const getDatas = async () => {
     await Axios.get(
       "http://ddragon.leagueoflegends.com/cdn/11.24.1/data/en_US/champion.json"
@@ -44,6 +55,15 @@ function App() {
       });
   };
 
+  /**
+   * Fetches the in-game data of the given summoner name and server
+   * 
+   * The summoner must be in a "Classic" Mode (Summoner's Rift) else it'll create an error
+   * If there are too many requests, it'll fail due to rate limits.
+   * 
+   * @param {*} summonerName : the ign of the summoner
+   * @param {*} server : the server of the summoner
+   */
   const searchSummoner = async (summonerName = "", server = "na1") => {
     setLoading(true);
     setMatches([]);
@@ -105,7 +125,14 @@ function App() {
       }
     }
   };
-  // Gets the rank data of the summoner
+
+  /**
+   * Gets the rank info of the given summoner id and server
+   * 
+   * @param {*} id : the encrypted id of the summoner 
+   * @param {*} server : the server the summoner is in
+   * @returns 
+   */
   const getSummonerInfo = async (id, server) => {
     const rankedLink = `https://${server}.api.riotgames.com/lol/league/v4/entries/by-summoner/${id}?api_key=${API_KEY}`;
     let summoner = await Axios.get(rankedLink).then((res) => {
@@ -115,7 +142,13 @@ function App() {
     return summoner;
   };
 
-  // Gets the info of the most recent 5 games of a summoner
+  /**
+   * Gets the history of the given summoner id and server
+   * 
+   * @param {*} id : the encrypted id of the summoner
+   * @param {*} server : the server the summoner is in
+   * @returns 
+   */
   const getMatchInfo = async (id, server) => {
     const summonerLink = `https://${server}.api.riotgames.com/lol/summoner/v4/summoners/${id}?api_key=${API_KEY}`;
     const puuid = await Axios.get(summonerLink).then((res) => {

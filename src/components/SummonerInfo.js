@@ -2,7 +2,7 @@ import React from 'react'
 import Match from './Match';
 import './SummonerInfo.css'
 
-function SummonerInfo({ summoner, name, summoner_icon, match }) {
+function SummonerInfo({ summoner, name, summoner_icon, match, spells }) {
 
     var solo_rank = summoner.find(({ queueType }) => queueType === "RANKED_SOLO_5x5");
     var tier = solo_rank !== undefined ? solo_rank.tier : 'UNRANKED';
@@ -28,11 +28,11 @@ function SummonerInfo({ summoner, name, summoner_icon, match }) {
                 </div>
             </div>
             <div className='summoner_matches'>
-                <Match match={match[0]} />
-                <Match match={match[1]} />
-                <Match match={match[2]} />
-                <Match match={match[3]} />
-                <Match match={match[4]} />
+                <Match match={match[0]} spells={spells} />
+                <Match match={match[1]} spells={spells} />
+                <Match match={match[2]} spells={spells} />
+                <Match match={match[3]} spells={spells} />
+                <Match match={match[4]} spells={spells} />
             </div>
         </div>
     )
