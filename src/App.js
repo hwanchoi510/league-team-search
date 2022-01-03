@@ -191,7 +191,7 @@ function App() {
       </div>
       <SearchForm search={searchSummoner} />
       <div>
-        {loading ? <div className='loading'><i class="fas fa-spinner fa-spin fa-3x"/></div> : null}
+        {loading ? <div className='loading'><i className="fas fa-spinner fa-spin fa-3x"/></div> : null}
         {error ? <p className='message'>{errorMessage}</p> : null}
         {matches.length > 0 && !loading && !error ? (
           <MatchInfo

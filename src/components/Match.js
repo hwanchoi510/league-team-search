@@ -3,29 +3,12 @@ import './Match.css'
 
 function Match({ match, spells }) {
 
-    var spells = {
-        "0": "SummonerHeal",
-        "1": "SummonerBoost",
-        "3": "SummonerExhaust",
-        "4": "SummonerFlash",
-        "6": "SummonerHaste",
-        "7": "SummonerHeal",
-        "11": "SummonerSmite",
-        "12": "SummonerTeleport",
-        "13": "SummonerMana",
-        "14": "SummonerDot",
-        "21": "SummonerBarrier",
-        "30": "SummonerPoroRecall",
-        "31": "SummonerPoroThrow",
-        "32": "SummonerSnowball",
-        "39": "SummonerSnowURFSnowball_Mark"
-    }
     var win = match.win;
     var champion = match.championName;
     var stats = `${match.kills}/${match.deaths}/${match.assists}`;
-    var kda = ((match.kills + match.assists) / match.deaths).toFixed(2)
-    var spell1 = spells.find(({ key }) => key === `${match.spell1Id}`).id;
-    var spell2 = spells.find(({ key }) => key === `${match.spell2Id}`).id;
+    var kda = ((match.kills + match.assists) / match.deaths).toFixed(2);
+    var spell1 = spells.find(({ key }) => key === `${match.summoner1Id}`).id;
+    var spell2 = spells.find(({ key }) => key === `${match.summoner2Id}`).id;
 
     return (
         <div className={win ? 'match_container win' : 'match_container lose'}>
