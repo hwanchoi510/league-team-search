@@ -34,7 +34,7 @@ function App() {
    */
   const getDatas = async () => {
     await Axios.get(
-      "http://ddragon.leagueoflegends.com/cdn/11.24.1/data/en_US/champion.json"
+      "https://ddragon.leagueoflegends.com/cdn/11.24.1/data/en_US/champion.json"
     )
       .then((res) => {
         return res.data;
@@ -44,7 +44,7 @@ function App() {
       });
 
     await Axios.get(
-      "http://ddragon.leagueoflegends.com/cdn/11.24.1/data/en_US/summoner.json"
+      "https://ddragon.leagueoflegends.com/cdn/11.24.1/data/en_US/summoner.json"
     )
       .then((res) => {
         return res.data;
