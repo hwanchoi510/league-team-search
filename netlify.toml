@@ -1,5 +1,5 @@
 [build]
     functions = "functions/"
     base = "league-team-search"
-    command = "CI = npm run build"
+    command = "CI= npm run build"
     publish = "build"
