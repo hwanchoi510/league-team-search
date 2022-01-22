@@ -4,7 +4,7 @@ import './Player.css'
 function Player({ player_info, runes, spells, champs }) {
 
     var rune_link = 'https://ddragon.canisback.com/img/';
-    var spell_link = `http://ddragon.leagueoflegends.com/cdn/11.24.1/img/spell/`;
+    var spell_link = `https://ddragon.leagueoflegends.com/cdn/11.24.1/img/spell/`;
     var team = player_info.teamId;
     var name = player_info.summonerName;
     var champion = champs.find(({ key }) => key === `${player_info.championId}`).id;
@@ -15,7 +15,7 @@ function Player({ player_info, runes, spells, champs }) {
     return (
         <div className={team === 100 ? 'player_blue' : 'player_red'}>
             <p className='player_name'>{name}</p>
-            <img src={`http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/${champion}.png`} alt={champion} className='player_champion_icon' />
+            <img src={`https://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/${champion}.png`} alt={champion} className='player_champion_icon' />
             <div className='spells'>
                 <img src={`${spell_link}${spell1}.png`} alt='spell' className='spell_icon' />
                 <img src={`${spell_link}${spell2}.png`} alt='spell' className='spell_icon' />
