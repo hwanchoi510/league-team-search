@@ -4,7 +4,8 @@ axios = require('axios');
 const handler = async (event) => {
   const {server, summonerName} = event.queryStringParameters
   const API_KEY = process.env.REACT_APP_RIOT_API_KEY;
-  const url = `https://${server}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=${API_KEY}`;
+
+  const url = `https://${server}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${encodeURIComponent(summonerName)}?api_key=${API_KEY}`;
   try {
     const data = await axios.get(url)
       .then((res) => {

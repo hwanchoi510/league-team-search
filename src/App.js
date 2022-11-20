@@ -25,7 +25,6 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [champions, setChamps] = useState([]);
   const [spells, setSpells] = useState([]);
-
   /**
    * Gets the initial data from the riot api
    * Data fetched:
@@ -75,9 +74,7 @@ function App() {
 
     getDatas();
 
-    const summonerLink = `/.netlify/functions/fetch-summoner-id?server=${server}&summonerName=${summonerName}`;
-    
-    let data = await Axios.get(summonerLink)
+    let data = await Axios.get(`/.netlify/functions/fetch-summoner-id?server=${server}&summonerName=${encodeURIComponent(summonerName)}`)
       .then((res) => {
         setError(false);
         return res.data.id;
@@ -90,8 +87,7 @@ function App() {
       });
 
     if (data != null) {
-      const matchLink = `/.netlify/functions/fetch-current-match?server=${server}&data=${data}`;
-      let current_game = await Axios.get(matchLink)
+      let current_game = await Axios.get(`/.netlify/functions/fetch-current-match?server=${server}&data=${data}`)
         .then((res) => {
           setError(false);
           return res.data;
@@ -134,8 +130,8 @@ function App() {
    * @returns 
    */
   const getSummonerInfo = async (id, server) => {
-    const rankedLink = `/.netlify/functions/fetch-summoner-rank?server=${server}&id=${id}`;
-    let summoner = await Axios.get(rankedLink).then((res) => {
+    let summoner = await Axios.get(`/.netlify/functions/fetch-summoner-rank?server=${server}&id=${id}`)
+    .then((res) => {
       return res.data;
     });
 
@@ -150,8 +146,8 @@ function App() {
    * @returns 
    */
   const getMatchInfo = async (id, server) => {
-    const summonerLink = `/.netlify/functions/fetch-summoner-info?server=${server}&id=${id}`;
-    const puuid = await Axios.get(summonerLink).then((res) => {
+    const puuid = await Axios.get(`/.netlify/functions/fetch-summoner-info?server=${server}&id=${id}`)
+    .then((res) => {
       setSummonerIcons((summonerIcons) => [
         ...summonerIcons,
         res.data.profileIconId,
@@ -159,8 +155,8 @@ function App() {
       return res.data.puuid;
     });
 
-    const matchesLink =  `/.netlify/functions/fetch-summoner-matches?server=${regions[server]}&puuid=${puuid}`;
-    const matchIDs = await Axios.get(matchesLink).then((res) => {
+    const matchIDs = await Axios.get(`/.netlify/functions/fetch-summoner-matches?server=${regions[server]}&puuid=${puuid}`)
+    .then((res) => {
       return res.data;
     });
 
