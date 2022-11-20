@@ -13,7 +13,7 @@ function SummonerInfo({ summoner, name, summoner_icon, match, spells }) {
     return (
         <div className='summoner'>
             <div className='summoner_profile'>
-                <img src={`https://ddragon.leagueoflegends.com/cdn/11.24.1/img/profileicon/${summoner_icon}.png`} alt='summoner icon' className='summoner_icon'/>
+                <img src={`https://ddragon.leagueoflegends.com/cdn/12.22.1/img/profileicon/${summoner_icon}.png`} alt='summoner icon' className='summoner_icon'/>
                 <div className='summoner_info' >
                     <h1 className='summoner_name'>{name}</h1>
                     <div className='ranked_info'>
