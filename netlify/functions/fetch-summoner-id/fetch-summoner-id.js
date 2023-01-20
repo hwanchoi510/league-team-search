@@ -7,10 +7,12 @@ const handler = async (event) => {
 
   const url = `https://${server}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${encodeURIComponent(summonerName)}?api_key=${API_KEY}`;
   try {
+    const controller = new AbortController();
     const data = await axios.get(url)
       .then((res) => {
         return res.data;
       });
+    controller.abort();
     
     return {
       statusCode: 200,

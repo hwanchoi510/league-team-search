@@ -6,11 +6,12 @@ const handler = async (event) => {
   const API_KEY = process.env.REACT_APP_RIOT_API_KEY;
   const url = `https://${server}.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?queue=420&start=0&count=5&api_key=${API_KEY}`;
   try {
+    const controller = new AbortController();
     const data = await axios.get(url)
       .then((res) => {
         return res.data;
       });
-    
+    controller.abort();
     return {
       statusCode: 200,
       body: JSON.stringify(data),

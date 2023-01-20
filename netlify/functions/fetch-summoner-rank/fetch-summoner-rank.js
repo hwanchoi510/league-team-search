@@ -6,11 +6,12 @@ const handler = async (event) => {
   const API_KEY = process.env.REACT_APP_RIOT_API_KEY;
   const url = `https://${server}.api.riotgames.com/lol/league/v4/entries/by-summoner/${id}?api_key=${API_KEY}`;
   try {
+    const controller = new AbortController();
     const data = await axios.get(url)
       .then((res) => {
         return res.data;
       });
-    
+    controller.abort();
     return {
       statusCode: 200,
       body: JSON.stringify(data),

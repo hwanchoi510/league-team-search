@@ -10,6 +10,7 @@ import './App.css'
  */
 function App() {
 
+  const API_KEY = process.env.REACT_APP_RIOT_API_KEY;
   var regions = {
     na1: "americas",
     kr: "asia",
@@ -74,7 +75,8 @@ function App() {
 
     getDatas();
 
-    let data = await Axios.get(`/.netlify/functions/fetch-summoner-id?server=${server}&summonerName=${encodeURIComponent(summonerName)}`)
+    // let data = await Axios.get(`/.netlify/functions/fetch-summoner-id?server=${server}&summonerName=${encodeURIComponent(summonerName)}`)
+    let data = await Axios.get(`https://${server}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${encodeURIComponent(summonerName)}?api_key=${API_KEY}`)
       .then((res) => {
         setError(false);
         return res.data.id;
@@ -87,7 +89,8 @@ function App() {
       });
 
     if (data != null) {
-      let current_game = await Axios.get(`/.netlify/functions/fetch-current-match?server=${server}&data=${data}`)
+      // let current_game = await Axios.get(`/.netlify/functions/fetch-current-match?server=${server}&data=${data}`)
+      let current_game = await Axios.get(`https://${server}.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/${data}?api_key=${API_KEY}`)
         .then((res) => {
           setError(false);
           return res.data;
@@ -107,6 +110,13 @@ function App() {
           let summoner = await getSummonerInfo(p.summonerId, server);
           let match = await getMatchInfo(p.summonerId, server);
           
+          if( summoner == null || match == null ) {
+            setLoading(false);
+            setErrorMessage("Try again later");
+            setError(true);
+            console.log("error");
+            return null;
+          }
           await setSummonerName((summonerNames) => [...summonerNames, p.summonerName])
           await setSummoners((summoners) => [...summoners, summoner]);
           await setMatches((matches) => [...matches, match]);
@@ -130,9 +140,12 @@ function App() {
    * @returns 
    */
   const getSummonerInfo = async (id, server) => {
-    let summoner = await Axios.get(`/.netlify/functions/fetch-summoner-rank?server=${server}&id=${id}`)
+    // let summoner = await Axios.get(`/.netlify/functions/fetch-summoner-rank?server=${server}&id=${id}`)
+    let summoner = await Axios.get(`https://${server}.api.riotgames.com/lol/league/v4/entries/by-summoner/${id}?api_key=${API_KEY}`)
     .then((res) => {
       return res.data;
+    }).catch((error) => {
+      return null;
     });
 
     return summoner;
@@ -146,33 +159,37 @@ function App() {
    * @returns 
    */
   const getMatchInfo = async (id, server) => {
-    const puuid = await Axios.get(`/.netlify/functions/fetch-summoner-info?server=${server}&id=${id}`)
+    // const puuid = await Axios.get(`/.netlify/functions/fetch-summoner-info?server=${server}&id=${id}`)
+    const puuid = await Axios.get(`https://${server}.api.riotgames.com/lol/summoner/v4/summoners/${id}?api_key=${API_KEY}`)
     .then((res) => {
       setSummonerIcons((summonerIcons) => [
         ...summonerIcons,
         res.data.profileIconId,
       ]);
       return res.data.puuid;
-    });
+    }).catch((error) => {
+      return null
+    });;
 
-    const matchIDs = await Axios.get(`/.netlify/functions/fetch-summoner-matches?server=${regions[server]}&puuid=${puuid}`)
+    //const matchIDs = await Axios.get(`/.netlify/functions/fetch-summoner-matches?server=${regions[server]}&puuid=${puuid}`)
+    const matchIDs = await Axios.get(`https://${regions[server]}.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?queue=420&start=0&count=5&api_key=${API_KEY}`)
     .then((res) => {
       return res.data;
+    }).catch((error) => {
+      return null
     });
 
     var matches = [];
     for await (const matchID of matchIDs) {
-      const match = await Axios.get(
-        `/.netlify/functions/fetch-summoner-match?server=${regions[server]}&matchID=${matchID}`
-      )
+
+      // const match = await Axios.get(`/.netlify/functions/fetch-summoner-match?server=${regions[server]}&matchID=${matchID}`)
+      const match = await Axios.get(`https://${regions[server]}.api.riotgames.com/lol/match/v5/matches/${matchID}?api_key=${API_KEY}`)
         .then((res) => {
           let participants = res.data.info.participants;
           return participants.find(({ summonerId }) => summonerId === id);
         })
         .catch((error) => {
-          setLoading(false);
-          setErrorMessage("Try again later");
-          setError(true);
+          return null;
         });
       await matches.push(match);
     }
